@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f671284a-3554-4f2a-a1c1-1d8639c9bc51" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controller/ffmpeg_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/ffmpeg_controller.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
