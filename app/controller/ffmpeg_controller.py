@@ -7,7 +7,7 @@ class FFMPEGController:
         return { "ffmpeg_version": version }
 
     @staticmethod
-    async def __get_ffmpeg_version_from_subprocess():
+    async def __get_ffmpeg_version_from_subprocess() -> str:
         process = await asyncio.create_subprocess_exec(
             'ffmpeg', '-version', stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
