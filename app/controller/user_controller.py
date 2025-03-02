@@ -1,10 +1,4 @@
-from app.component.decorator.singleton import singleton
-
-
-@singleton()
 class UserController:
-    def get_users(self):
+    @staticmethod
+    def get_users():
         return "Hello"
-
-
-user_controller = UserController()

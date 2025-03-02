@@ -1,9 +1,11 @@
+import subprocess
 import time
 from typing import List
 
 
 from fastapi import FastAPI
 
+from app.router.ffmpeg_router import ffmpeg_router
 from app.service.user_service import UserService
 from app.router.user_router import user_router
 from app.model.schema.user_schema import UserCreate, UserResponse
@@ -26,4 +28,6 @@ def create_user(user_create: UserCreate) -> UserCreate:
     return user_create
 
 
+
 app.include_router(user_router)
+app.include_router(ffmpeg_router)
