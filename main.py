@@ -1,4 +1,3 @@
-import subprocess
 import time
 from typing import List
 
@@ -8,14 +7,14 @@ from fastapi import FastAPI
 from app.router.ffmpeg_router import ffmpeg_router
 from app.service.user_service import UserService
 from app.router.user_router import user_router
-from app.model.schema.user_schema import UserCreate, UserResponse
+from app.schema.user import UserCreate, UserResponse
 
 app = FastAPI()
 
 @app.get("/v2/users", response_model=List[UserResponse])
-def read_users():
+async def read_users():
     start_time = time.perf_counter()
-    users = UserService.get_users()
+    users = await UserService.get_users()
     end_time = time.perf_counter()
     print(f"Query executed in {end_time - start_time:.6f} seconds")
     users = [{"id": user[0], "username": user[1], "email": user[2], "password": user[3]} for user in users]

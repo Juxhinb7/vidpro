@@ -1,13 +1,29 @@
 import asyncio
 
+from fastapi import  status
+from fastapi.responses import JSONResponse
+
+from app.schema.result import Result
+
+
 class FFMPEGController:
     @staticmethod
     async def get_ffmpeg_version():
-        version = await FFMPEGController.__try_get_ffmpeg_version_from_subprocess()
-        return { "ffmpeg_version": version }
+        """
+        Handler that outputs the ffmpeg version.
+        """
+        result = await FFMPEGController.__try_get_ffmpeg_version_from_subprocess()
+
+        if result.has_error:
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=result.model_dump())
+
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result.model_dump())
 
     @staticmethod
-    async def __try_get_ffmpeg_version_from_subprocess() -> str:
+    async def __try_get_ffmpeg_version_from_subprocess() -> Result:
+        """
+        Static helper method that gets the ffmpeg version from the stdout after a subprocess call.
+        """
         try:
             process = await asyncio.create_subprocess_exec(
             'ffmpeg', '-version', stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -17,13 +33,16 @@ class FFMPEGController:
 
             if process.returncode != 0:
                 error_message = stderr.decode().strip() or "Unknown error"
-                return f"Error: {error_message}"
+                return Result(output=error_message, has_error=True)
 
             version_output = stdout.decode().splitlines() # Get the first line (version info)
 
-            return version_output[0] if version_output else "Error: No output from ffmpeg"
+            if version_output:
+                return Result(output=version_output[0], has_error=False)
+            else:
+                return Result(output="Error: No output from ffmpeg", has_error=True)
 
         except FileNotFoundError:
-            return "Error: ffmpeg is not installed or not found in PATH"
+            return Result(output="Error: ffmpeg is not installed or not found in PATH", has_error=True)
         except Exception as e:
-            return f"Unexpected error {str(e)}"
+            return Result(output=f"Unexpected error {str(e)}", has_error=True)

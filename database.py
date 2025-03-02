@@ -1,5 +1,4 @@
-import sqlite3
+from sqlalchemy import StaticPool
+from sqlalchemy.ext.asyncio import create_async_engine
 
-from sqlalchemy import create_engine, StaticPool
-
-engine = create_engine("sqlite:///storage/vidpro.db", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+engine = create_async_engine("sqlite+aiosqlite:///storage/vidpro.db", echo=True, poolclass=StaticPool)
