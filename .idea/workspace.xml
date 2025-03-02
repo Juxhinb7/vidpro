@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f671284a-3554-4f2a-a1c1-1d8639c9bc51" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vidpro.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/component/decorator/singleton.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controller/user_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/database/user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/schema/user_schema.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/router/user_router.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/service/user_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/create.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/vidpro.db" afterDir="false" />
-    </list>
+    <list default="true" id="f671284a-3554-4f2a-a1c1-1d8639c9bc51" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
