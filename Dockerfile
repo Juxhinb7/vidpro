@@ -10,4 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8000
 
+RUN -p 6379:6379 --name redis_service -d redis
+
 CMD ["fastapi", "run", "main.py"]

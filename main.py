@@ -1,32 +1,51 @@
-import time
-from typing import List
+import asyncio
 
-
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 
 from app.router.ffmpeg_router import ffmpeg_router
-from app.service.user_service import UserService
+from app.router.file_router import file_router
 from app.router.user_router import user_router
-from app.schema.user import UserCreate, UserResponse
+from app.utility.exception_handlers import register_exceptions
+import logging
+from globals import lock, PROGRESS
+
+# Configure logging
+logging.basicConfig(
+    level=logging.ERROR,  # Set the logging level to ERROR
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log', mode="w"),  # File handler that writes to app.log
+        logging.StreamHandler()          # Stream handler that outputs to console
+    ],
+)
 
 app = FastAPI()
 
-@app.get("/v2/users", response_model=List[UserResponse])
-async def read_users():
-    start_time = time.perf_counter()
-    users = await UserService.get_users()
-    end_time = time.perf_counter()
-    print(f"Query executed in {end_time - start_time:.6f} seconds")
-    users = [{"id": user[0], "username": user[1], "email": user[2], "password": user[3]} for user in users]
-    return users
 
 
-@app.post("/v2/users/create")
-def create_user(user_create: UserCreate) -> UserCreate:
-    UserService.create_user(user_create.username, user_create.email, user_create.password)
-    return user_create
-
-
+register_exceptions(app)
 
 app.include_router(user_router)
 app.include_router(ffmpeg_router)
+app.include_router(file_router)
+
+
+@app.websocket("/ws")
+async def progress_websocket(websocket: WebSocket):
+    await websocket.accept()  # Accept the WebSocket connection
+
+    try:
+        while PROGRESS["message"] is None:
+            await websocket.send_text("Waiting for message")
+            await asyncio.sleep(1)
+
+
+
+        await websocket.send_json({"message": PROGRESS["message"]})
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+    finally:
+        await websocket.close()
+
