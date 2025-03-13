@@ -3,7 +3,7 @@ FROM python:3.11
 
 RUN apt update && apt install -y ffmpeg
 
-RUN apt install rabbitmq-server
+RUN apt install -y rabbitmq-server
 
 COPY . .
 
