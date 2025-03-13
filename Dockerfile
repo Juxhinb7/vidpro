@@ -12,4 +12,4 @@ RUN apt-get install -y redis-server
 
 EXPOSE 8000, 6379
 
-CMD ["sh", "c", "redis-server --daemonize no && fastapi run main.py"]
+CMD ["sh", "-c", "redis-server --daemonize no && fastapi run main.py"]
