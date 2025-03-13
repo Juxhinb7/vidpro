@@ -8,8 +8,10 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8000
+RUN apt-get install -y redis_server
 
-RUN -p 6379:6379 --name redis_service -d redis
+EXPOSE 8000, 6379
 
-CMD ["fastapi", "run", "main.py"]
+CMD ["redis_server"]
+
+CMD ["sh", "c", "redis_server --daemonize no && fastapi run main.py"]
